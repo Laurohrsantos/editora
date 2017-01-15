@@ -22,8 +22,19 @@
                             <td>{{ $category->id }}</td>
                             <td>{{ $category->name }}</td>
                             <td>
-                                <a><i class="glyphicon glyphicon-edit" aria-hidden="true">Editar</i></a>
-                                <a><i class="glyphicon glyphicon-remove" aria-hidden="true">Deletar</i></a>
+                                <ul class="list-inline">
+                                    <li><a href="{{ route('categories.edit', ['category' => $category->id]) }}">Editar</a></li>
+                                    <li>|</li>
+                                    <li>
+                                        <a href="{{ route('categories.show', ['category' => $category->id]) }}">Deletar</a>
+                                        {{--<?php $deleteForm = "delete-form-{$loop->index}"; ?>--}}
+                                        {{--<a href="{{ route('categories.destroy', ['category' => $category->id]) }}"--}}
+                                        {{--onclick="event.preventDefault(); document.getElementById('{{ $deleteForm  }}').submit">Deletar</a>--}}
+                                        {{--{!! Form::open(['route' => ['categories.destroy', 'category' => $category->id], 'id' => $deleteForm, 'method' => 'DELETE']) !!}--}}
+                                        {{--{!! Form::close() !!}--}}
+                                    </li>
+                                </ul>
+
                             </td>
                         </tr>
                     @endforeach
