@@ -5,7 +5,6 @@
         <div class="row">
             <h3>Deletar Categoria</h3>
 
-            @inclue('errors._errors_form')
             {!! Form::model($category, [
                 'route' => ['categories.destroy', 'category' => $category->id],
                 'class' => 'form', 'method' => 'DELETE']) !!}
