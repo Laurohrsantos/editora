@@ -5,12 +5,12 @@
         <div class="row">
             <h3>Nova Categoria</h3>
 
-            {!! Form::open(['route' => 'categories.store', 'class' => 'form']) !!}
+            {!! Form::open(['route' => 'books.store', 'class' => 'form']) !!}
 
-                @include('categories._form')
+                @include('books._form')
 
             {!! Html::openFormGroup() !!}
-                {!! Form::submit('Criar Categoria', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Criar Livro', ['class' => 'btn btn-primary']) !!}
             {!! Html::closeFormGroup() !!}
             {!! Form::close() !!}
        </div>

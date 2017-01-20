@@ -3,17 +3,17 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>Editar Categoria</h3>
+            <h3>Editar Livro</h3>
 
 
-            {!! Form::model($category, [
-                'route' => ['categories.update', 'category' => $category->id],
+            {!! Form::model($book, [
+                'route' => ['books.update', 'category' => $book->id],
                 'class' => 'form', 'method' => 'PUT']) !!}
 
-                @include('categories._form')
+                @include('books._form')
 
             {!! Html::openFormGroup() !!}
-                {!! Form::submit('Editar Categoria', ['class' => 'btn btn-info']) !!}
+                {!! Form::submit('Editar Livro', ['class' => 'btn btn-info']) !!}
             {!! Html::closeFormGroup() !!}
             {!! Form::close() !!}
         </div>
