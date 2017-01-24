@@ -8,38 +8,15 @@
         </div>
         <br>
         <div class="row">
-            <table class="table table-striped">
-                <tread>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Ações</th>
-                    </tr>
-                </tread>
-                <tbody>
-                    @foreach($categories as $category)
-                        <tr>
-                            <td>{{ $category->id }}</td>
-                            <td>{{ $category->name }}</td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li><a href="{{ route('categories.edit', ['category' => $category->id]) }}">Editar</a></li>
-                                    <li>|</li>
-                                    <li>
-                                        <a href="{{ route('categories.show', ['category' => $category->id]) }}">Deletar</a>
-                                        {{--<?php $deleteForm = "delete-form-{$loop->index}"; ?>--}}
-                                        {{--<a href="{{ route('categories.destroy', ['category' => $category->id]) }}"--}}
-                                        {{--onclick="event.preventDefault(); document.getElementById('{{ $deleteForm  }}').submit">Deletar</a>--}}
-                                        {{--{!! Form::open(['route' => ['categories.destroy', 'category' => $category->id], 'id' => $deleteForm, 'method' => 'DELETE']) !!}--}}
-                                        {{--{!! Form::close() !!}--}}
-                                    </li>
-                                </ul>
-
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            {!!
+                Table::withContents($categories->items())->striped()->callback('Ações', function ($field, $category) {
+                    return "<ul class=\"list-inline\">".
+                           "<li>".Button::link('Editar')->asLinkTo(route('categories.edit', ['category' => $category->id]))."<li>".
+                           "<li>|<li>".
+                           "<li>".Button::link('Deletar')->asLinkTo(route('categories.show', ['category' => $category->id]))."<li>".
+                           "</ul>";
+                })
+            !!}
 
             {{ $categories->links()  }}
 

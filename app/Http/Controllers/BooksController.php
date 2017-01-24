@@ -26,7 +26,7 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('books/create');
+        return view('books.create');
     }
 
     /**
@@ -68,7 +68,6 @@ class BooksController extends Controller
     public function edit($id)
     {
         $book = Book::find($id);
-
         return redirect()->route('books.edit', compact('book'));
     }
 

@@ -29,7 +29,7 @@
             </fieldset>
 
             <div class="form-group">
-                {!! Form::submit('Deletar Categoria', ['class' => 'btn btn-danger']) !!}
+                {!! Form::submit('Deletar Livro', ['class' => 'btn btn-danger']) !!}
             </div>
             {!! Form::close() !!}
         </div>
