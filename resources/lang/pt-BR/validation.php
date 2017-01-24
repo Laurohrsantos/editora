@@ -116,6 +116,9 @@ return [
 
     'attributes'           => [
         'name' => 'nome',
+        'title' => 'título',
+        'subtitle' => 'subtítulo',
+        'price' => 'preço'
     ],
 
 ];
