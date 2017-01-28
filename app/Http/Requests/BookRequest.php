@@ -13,6 +13,9 @@ class BookRequest extends FormRequest
      */
     public function authorize()
     {
+        if ($this->method() == 'PUT'){
+            dd('caiu aqui');
+        }
         return true;
     }
 

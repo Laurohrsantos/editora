@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;

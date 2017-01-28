@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Book;
+use App\Models\Book;
 use App\Http\Requests\BookRequest;
 use Illuminate\Http\Request;
 
@@ -39,15 +39,18 @@ class BooksController extends Controller
     public function store(BookRequest $request)
     {
         Book::create($request->all());
+        $request->session()->flash('message', 'Livro cadastrado com Sucesso.');
+        $url = $request->get('redirect_to', route('books.index'));
 
-        return redirect()->route('books.index');
+        return redirect()->to($url);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Book $books
+     * @param $id
      * @return \Illuminate\Http\Response
+     * @internal param Book $books
      * @internal param int $id
      */
     public function show($id)
@@ -84,8 +87,10 @@ class BooksController extends Controller
     {
         $book->fill($request->all());
         $book->save();
+        $request->session()->flash('message', 'Livro alterado com Sucesso.');
+        $url = $request->get('redirect_to', route('books.index'));
 
-        return redirect()->route('books.index');
+        return redirect()->to($url);
     }
 
     /**
@@ -98,6 +103,7 @@ class BooksController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
+        \Session::flash('message', 'Livro deletado com Sucesso.');
 
         return redirect()->route('books.index');
     }

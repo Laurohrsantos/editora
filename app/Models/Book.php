@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +18,7 @@ class Book extends Model implements TableInterface
      */
     public function getTableHeaders()
     {
-        return ['#', 'title', 'subtitle', 'price'];
+        return ['#', 'Título', 'Subtítulo', 'Preço'];
     }
 
     /**
@@ -33,13 +33,18 @@ class Book extends Model implements TableInterface
         switch ($header) {
             case '#':
                 return $this->id;
-            case 'title':
+            case 'Título':
                 return $this->title;
-            case 'subtitle':
+            case 'Subtítulo':
                 return $this->subtitle;
-            case 'price':
+            case 'Preço':
                 return $this->price;
 
         }
+    }
+
+    public  function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

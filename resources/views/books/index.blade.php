@@ -11,9 +11,9 @@
             {!!
                 Table::withContents($books->items())->striped()->callback('Ações', function ($field, $book) {
                     return "<ul class=\"list-inline\">".
-                           "<li>".Button::link('Editar')->asLinkTo(route('categories.edit', ['category' => $book->id]))."<li>".
+                           "<li>".Button::link('Editar')->asLinkTo(route('books.edit', ['category' => $book->id]))."<li>".
                            "<li>|<li>".
-                           "<li>".Button::link('Deletar')->asLinkTo(route('categories.show', ['category' => $book->id]))."<li>".
+                           "<li>".Button::link('Deletar')->asLinkTo(route('books.show', ['category' => $book->id]))."<li>".
                            "</ul>";
                 })
             !!}

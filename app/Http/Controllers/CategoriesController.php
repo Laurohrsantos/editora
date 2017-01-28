@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 
@@ -39,8 +39,10 @@ class CategoriesController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create($request->all());
+        $url = $request->get('redirect_to', route('categories.index'));
+        $request->session()->flash('message', 'Categoria Cadastrada com Sucesso.');
 
-        return redirect()->route('categories.index');
+        return redirect()->to($url);
     }
 
     /**
@@ -79,8 +81,10 @@ class CategoriesController extends Controller
     {
         $category->fill($request->all());
         $category->save();
+        $request->session()->flash('message', 'Categoria alterada com sucesso.');
+        $url = $request->get('redirect_to', route('categories.index'));
 
-        return redirect()->route('categories.index');
+        return redirect()->to($url);
     }
 
     /**
@@ -93,6 +97,7 @@ class CategoriesController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+        \Session::flash('message', 'Categoria deletada com Sucesso.');
 
         return redirect()->route('categories.index');
     }

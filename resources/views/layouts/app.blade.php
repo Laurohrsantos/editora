@@ -57,6 +57,12 @@
         {!! Form::open([ 'url' => url('/logout'), 'id' => 'logout-form', 'style' => 'display: none']) !!}
         {!! Form::close() !!}
 
+        @if(Session::has('message'))
+            <div class="container">
+                {!! Alert::success(Session::get('message'))->close() !!}
+            </div>s
+        @endif
+
         @yield('content')
     </div>
 
