@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace CodePub\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model implements TableInterface
 {
     protected $fillable = [
-        'title', 'subtitle', 'price',
+        'user_id', 'title', 'subtitle', 'price',
     ];
 
     /**

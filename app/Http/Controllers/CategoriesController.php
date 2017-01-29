@@ -1,13 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace CodePub\Http\Controllers;
 
-use App\Models\Category;
-use App\Http\Requests\CategoryRequest;
+use CodePub\Models\Category;
+use CodePub\Http\Requests\CategoryRequest;
+use CodePub\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
+    /**
+     * @var CategoryRepository
+     */
+    private $repository;
+
+    /**
+     * CategoriesController constructor.
+     * @param CategoryRepository $repository
+     */
+    public function __construct(CategoryRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +30,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::query()->paginate(10);
+        $categories = $this->repository->paginate(10);
 
         return view('categories.index', compact('categories'));
     }
@@ -38,7 +53,7 @@ class CategoriesController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
+        $this->repository->create($request->all());
         $url = $request->get('redirect_to', route('categories.index'));
         $request->session()->flash('message', 'Categoria Cadastrada com Sucesso.');
 
@@ -73,14 +88,13 @@ class CategoriesController extends Controller
      * Update the specified resource in storage.
      *
      * @param CategoryRequest|Request $request
-     * @param Category $category
-     * @return \Illuminate\Http\Response
+     * @param $id
      * @internal param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request, $id)
     {
-        $category->fill($request->all());
-        $category->save();
+        $this->repository->update($request->all(), $id);
         $request->session()->flash('message', 'Categoria alterada com sucesso.');
         $url = $request->get('redirect_to', route('categories.index'));
 
@@ -90,13 +104,14 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Category $category
+     * @param $id
      * @return \Illuminate\Http\Response
+     * @internal param Category $category
      * @internal param int $id
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete();
+        $this->repository->delete($id);
         \Session::flash('message', 'Categoria deletada com Sucesso.');
 
         return redirect()->route('categories.index');

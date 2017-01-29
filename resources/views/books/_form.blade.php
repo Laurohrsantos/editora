@@ -1,4 +1,7 @@
 {!! Form::hidden('redirect_to', URL::previous()) !!}
+
+{!! Form::hidden('user_id', Auth::id()) !!}
+
 {!! Html::openFormGroup('title', $errors) !!}
     {!! Form::label('title', 'Título', ['class' => 'control-label']) !!}
     {!! Form::text('title', null, ['class' => 'form-control']) !!}
@@ -13,6 +16,6 @@
 
 {!! Html::openFormGroup('price', $errors) !!}
     {!! Form::label('price', 'Preço', ['class' => 'control-label']) !!}
-    {!! Form::number('price', null, ['class' => 'form-control']) !!}
+    {!! Form::text('price', null, ['class' => 'form-control']) !!}
     {!! Form::error('price', $errors) !!}
 {!! Html::closeFormGroup() !!}
