@@ -47,4 +47,5 @@ class Book extends Model implements TableInterface
     {
         return $this->belongsTo(User::class);
     }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Book;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BookRequest extends FormRequest
@@ -13,8 +14,14 @@ class BookRequest extends FormRequest
      */
     public function authorize()
     {
+        $book_user =  Book::query()->find($this->route('book')->id)->user_id;
+        $user_id = \Auth::id();
+
         if ($this->method() == 'PUT'){
-            dd('caiu aqui');
+            if ($book_user == $user_id){
+                return true;
+            }
+            return false;
         }
         return true;
     }

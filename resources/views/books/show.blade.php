@@ -5,8 +5,8 @@
         <div class="row">
             <h3>Deletar Categoria</h3>
 
-            {!! Form::model($books, [
-                'route' => ['books.destroy', 'category' => $books->id],
+            {!! Form::model($book, [
+                'route' => ['books.destroy', 'category' => $book->id],
                 'class' => 'form', 'method' => 'DELETE']) !!}
 
             <fieldset disabled>

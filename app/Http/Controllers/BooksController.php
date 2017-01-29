@@ -48,31 +48,25 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $id
+     * @param Book $book
      * @return \Illuminate\Http\Response
-     * @internal param Book $books
-     * @internal param int $id
+     * @internal param $id
      */
-    public function show($id)
+    public function show(Book $book)
     {
-        $books = Book::find($id);
-
-        return view('books.show', compact('books'));
+        return view('books.show', compact('book'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Book $book
      * @return \Illuminate\Http\Response
      * @internal param Book $book
-     * @internal param Request $request
-     * @internal param int $id
      */
-    public function edit(Book $id)
+    public function edit(Book $book)
     {
-        $book = Book::find($id);
-        return redirect()->route('books.edit', compact('book'));
+        return view('books.edit', compact('book'));
     }
 
     /**
