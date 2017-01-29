@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model implements TableInterface
 {
     protected $fillable = [
-        'user_id', 'title', 'subtitle', 'price',
+        'author_id', 'title', 'subtitle', 'price',
     ];
 
     /**
@@ -18,7 +18,7 @@ class Book extends Model implements TableInterface
      */
     public function getTableHeaders()
     {
-        return ['#', 'Título', 'Subtítulo', 'Preço'];
+        return ['#', 'Título', 'Subtítulo', 'Autor','Preço'];
     }
 
     /**
@@ -37,13 +37,15 @@ class Book extends Model implements TableInterface
                 return $this->title;
             case 'Subtítulo':
                 return $this->subtitle;
+            case 'Autor':
+                return $this->author->name;
             case 'Preço':
                 return $this->price;
 
         }
     }
 
-    public  function user()
+    public  function author()
     {
         return $this->belongsTo(User::class);
     }

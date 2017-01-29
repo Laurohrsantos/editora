@@ -1,6 +1,6 @@
 {!! Form::hidden('redirect_to', URL::previous()) !!}
 
-{!! Form::hidden('user_id', Auth::id()) !!}
+{!! Form::hidden('author_id', Auth::id()) !!}
 
 {!! Html::openFormGroup('title', $errors) !!}
     {!! Form::label('title', 'Título', ['class' => 'control-label']) !!}

@@ -2,11 +2,25 @@
 
 namespace CodePub\Http\Requests;
 
-use CodePub\Models\Book;
+use CodePub\Repositories\BookRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BookRequest extends FormRequest
 {
+    /**
+     * @var BookRepository
+     */
+    private $repository;
+
+    /**
+     * BookRequest constructor.
+     * @param BookRepository $repository
+     */
+    public function __construct(BookRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -14,11 +28,11 @@ class BookRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->method() == 'PUT'){
-            $book_user =  Book::query()->find($this->route('book'))->user_id;
+        if ($this->method() == 'PUT' || $this->method() == 'DELETE'){
+            $book_author =  $this->repository->find($this->route('book'));
             $user_id = \Auth::id();
 
-            if ($book_user == $user_id){
+            if ($book_author->author_id == $user_id){
                 return true;
             }
             return false;
@@ -33,11 +47,10 @@ class BookRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route('book');
 
         return [
-            'title' => "required | max: 255 | unique:books,title,$id",
-            'subtitle' => "required | max: 255 | unique:books,subtitle,$id",
+            'title' => "required | max: 255",
+            'subtitle' => "required | max: 255",
             'price' => "required | numeric"
         ];
     }

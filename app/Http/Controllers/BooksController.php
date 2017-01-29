@@ -54,7 +54,7 @@ class BooksController extends Controller
      */
     public function store(BookRequest $request)
     {
-//        dd($request);
+//        dd($request->all());
         $this->repository->create($request->all());
         $request->session()->flash('message', 'Livro cadastrado com Sucesso.');
         $url = $request->get('redirect_to', route('books.index'));
@@ -112,7 +112,7 @@ class BooksController extends Controller
      * @internal param Book $book
      * @internal param int $id
      */
-    public function destroy($id)
+    public function destroy(BookRequest $id)
     {
         $this->repository->delete($id);
         \Session::flash('message', 'Livro deletado com Sucesso.');

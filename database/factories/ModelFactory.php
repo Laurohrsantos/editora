@@ -29,10 +29,15 @@ $factory->define(\CodePub\Models\Category::class, function (Faker\Generator $fak
 });
 
 $factory->define(\CodePub\Models\Book::class, function (Faker\Generator $faker) {
+
+    $repository = app(\CodePub\Repositories\UserRepositoryEloquent::class);
+    /** @var \Illuminate\Database\Eloquent\Collection $users */
+    $authorId = $repository->all()->random()->id;
+
     return [
-        'user_id' => '1',
+        'author_id' => $authorId,
         'title' => ucfirst($faker->title),
         'subtitle' => ucfirst($faker->jobTitle),
-        'price' => $faker->randomFloat(2, 1, 1264),
+        'price' => $faker->randomFloat(2, 1, 100),
     ];
 });
