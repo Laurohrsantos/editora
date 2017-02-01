@@ -2,6 +2,8 @@
 
 namespace CodePub\Http\Controllers;
 
+use CodePub\Criteria\FindByAuthorCriteria;
+use CodePub\Criteria\FindByTitleCriteria;
 use CodePub\Models\Book;
 use CodePub\Http\Requests\BookRequest;
 use CodePub\Repositories\BookRepository;
@@ -29,11 +31,12 @@ class BooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('search');
         $books = $this->repository->paginate(10);
 
-        return view('books.index', compact('books'));
+        return view('books.index', compact('books', 'search'));
     }
 
     /**
@@ -55,7 +58,9 @@ class BooksController extends Controller
     public function store(BookRequest $request)
     {
 //        dd($request->all());
-        $this->repository->create($request->all());
+        $data = $request->all();
+        $data['author_id'] = \Auth::id();
+        $this->repository->create($data);
         $request->session()->flash('message', 'Livro cadastrado com Sucesso.');
         $url = $request->get('redirect_to', route('books.index'));
 
@@ -97,7 +102,8 @@ class BooksController extends Controller
      */
     public function update(BookRequest $request, $id)
     {
-        $this->repository->update($request->all(), $id);
+        $data = $request->except(['author_id']);
+        $this->repository->update($data, $id);
         $request->session()->flash('message', 'Livro alterado com Sucesso.');
         $url = $request->get('redirect_to', route('books.index'));
 

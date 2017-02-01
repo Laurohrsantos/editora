@@ -8,6 +8,15 @@
         </div>
         <br>
         <div class="row">
+            {!! Form::model(compact('search'), ['class' => 'form-inline', 'method' => 'GET']) !!}
+                {!! Form::label('search', 'Pesquisar:', ['class' => 'control-label']) !!}
+                {!! Form::text('search', null, ['class' => 'form-control']) !!}
+
+                {!! Button::primary('Buscar')->submit() !!}
+            {!! Form::close() !!}
+        </div>
+        <br>
+        <div class="row">
             {!!
                 Table::withContents($books->items())->striped()->callback('Ações', function ($field, $book) {
                     return "<ul class=\"list-inline\">".

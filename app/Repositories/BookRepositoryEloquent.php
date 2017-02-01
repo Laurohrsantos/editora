@@ -12,6 +12,12 @@ use CodePub\Models\Book;
  */
 class BookRepositoryEloquent extends BaseRepository implements BookRepository
 {
+
+    protected $fieldSearchable = [
+        'title' => 'like',
+        'subtitle' => 'like',
+        'author.name' => 'like'
+    ];
     /**
      * Specify Model class name
      *
