@@ -7,6 +7,7 @@ use CodePub\Criteria\FindByTitleCriteria;
 use CodePub\Models\Book;
 use CodePub\Http\Requests\BookRequest;
 use CodePub\Repositories\BookRepository;
+use CodePub\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -15,20 +16,26 @@ class BooksController extends Controller
      * @var BookRepository
      */
     private $repository;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
 
     /**
      * BooksController constructor.
      * @param BookRepository $repository
      */
-    public function __construct(BookRepository $repository)
+    public function __construct(BookRepository $repository, CategoryRepository $categoryRepository)
     {
 
         $this->repository = $repository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -46,7 +53,8 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        $categories = $this->categoryRepository->lists('name', 'id'); //pluck
+        return view('books.create', compact('categories'));
     }
 
     /**
@@ -70,24 +78,27 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Book $book
+     * @param $id
      * @return \Illuminate\Http\Response
+     * @internal param Book $book
      * @internal param $id
      */
-    public function show(Book $book)
+    public function show($id)
     {
+        $book = $this->repository->find($id);
         return view('books.show', compact('book'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Book $book
+     * @param $id
      * @return \Illuminate\Http\Response
      * @internal param Book $book
      */
-    public function edit(Book $book)
+    public function edit($id)
     {
+        $book = $this->repository->find($id);
         return view('books.edit', compact('book'));
     }
 

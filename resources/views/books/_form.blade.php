@@ -19,3 +19,10 @@
     {!! Form::text('price', null, ['class' => 'form-control']) !!}
     {!! Form::error('price', $errors) !!}
 {!! Html::closeFormGroup() !!}
+
+{!! Html::openFormGroup(['categories', 'categories.*'], $errors) !!}
+    {!! Form::label('categories[]', 'Categorias', ['class' => 'control-label']) !!}
+    {!! Form::select('categories[]', $categories, null, ['class' => 'form-control', 'multiple' => true]) !!}
+    {!! Form::error('categories', $errors) !!}
+    {!! Form::error('categories.*', $errors) !!}
+{!! Html::closeFormGroup() !!}

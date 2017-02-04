@@ -12,6 +12,8 @@ use CodePub\Models\Category;
  */
 class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
 {
+
+    use BaseRepositoryTrait;
     /**
      * Specify Model class name
      *

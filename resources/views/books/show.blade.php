@@ -25,6 +25,13 @@
                         {!! Form::label('price', 'Preço') !!}
                         {!! Form::number('price', null, ['class' => 'form-control']) !!}
                     </div>
+
+                    <div class="form-group">
+                        {!! Form::label('categories[]', 'Categorias', ['class' => 'control-label']) !!}
+                        {!! Form::select('categories[]', $categories, null, ['class' => 'form-control', 'multiple' => true]) !!}
+                        {!! Form::error('categories', $errors) !!}
+                        {!! Form::error('categories.*', $errors) !!}
+                    </div>
                 </fieldset>
             </fieldset>
 
