@@ -3,8 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>Listagem de Livros</h3>
-            <a href="{{ route('books.create')  }}" class="btn btn-primary  "><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Novo Livro</a>
+            <h3>Lixeira de Livros</h3>
         </div>
         <br>
         <div class="row">
@@ -22,7 +21,7 @@
                     return "<ul class=\"list-inline\">".
                            "<li>".Button::link('<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> Editar')->asLinkTo(route('books.edit', ['category' => $book->id]))."<li>".
                            "<li>|<li>".
-                           "<li>".Button::link('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Lixeira')->asLinkTo(route('books.show', ['category' => $book->id]))."<li>".
+                           "<li>".Button::link('<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> Deletar')->asLinkTo(route('books.show', ['category' => $book->id]))."<li>".
                            "</ul>";
                 })
             !!}

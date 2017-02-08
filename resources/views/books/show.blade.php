@@ -9,26 +9,26 @@
                 'route' => ['books.destroy', 'category' => $book->id],
                 'class' => 'form', 'method' => 'DELETE']) !!}
 
-            <fieldset disabled>
-                <fieldset disabled>
+            <fieldset readonly="readonly">
+                <fieldset readonly="readonly">
                     <div class="form-group">
                         {!! Form::label('title', 'Título') !!}
-                        {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('title', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
                     </div>
 
                     <div class="form-group">
                         {!! Form::label('subtitle', 'Subtítulo') !!}
-                        {!! Form::text('subtitle', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('subtitle', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
                     </div>
 
                     <div class="form-group">
                         {!! Form::label('price', 'Preço') !!}
-                        {!! Form::number('price', null, ['class' => 'form-control']) !!}
+                        {!! Form::number('price', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
                     </div>
 
                     <div class="form-group">
                         {!! Form::label('categories[]', 'Categorias', ['class' => 'control-label']) !!}
-                        {!! Form::select('categories[]', $categories, null, ['class' => 'form-control', 'multiple' => true]) !!}
+                        {!! Form::select('categories[]', $categories, null, ['class' => 'form-control', 'multiple' => true, 'readonly' => 'readonly']) !!}
                         {!! Form::error('categories', $errors) !!}
                         {!! Form::error('categories.*', $errors) !!}
                     </div>

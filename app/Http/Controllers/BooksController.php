@@ -6,6 +6,7 @@ use CodePub\Criteria\FindByAuthorCriteria;
 use CodePub\Criteria\FindByTitleCriteria;
 use CodePub\Models\Book;
 use CodePub\Http\Requests\BookRequest;
+use CodePub\Models\Category;
 use CodePub\Repositories\BookRepository;
 use CodePub\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
@@ -85,8 +86,9 @@ class BooksController extends Controller
      */
     public function show($id)
     {
+        $categories = $this->categoryRepository->lists('name', 'id'); //pluck
         $book = $this->repository->find($id);
-        return view('books.show', compact('book'));
+        return view('books.show', compact('book', 'categories'));
     }
 
     /**
@@ -98,8 +100,9 @@ class BooksController extends Controller
      */
     public function edit($id)
     {
+        $categories = $this->categoryRepository->lists('name', 'id'); //pluck
         $book = $this->repository->find($id);
-        return view('books.edit', compact('book'));
+        return view('books.edit', compact('book', 'categories'));
     }
 
     /**

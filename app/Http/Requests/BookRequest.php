@@ -3,6 +3,7 @@
 namespace CodePub\Http\Requests;
 
 use CodePub\Repositories\BookRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BookRequest extends FormRequest

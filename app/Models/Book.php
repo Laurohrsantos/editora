@@ -5,10 +5,14 @@ namespace CodePub\Models;
 use Bootstrapper\Interfaces\TableInterface;
 use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model implements TableInterface
 {
     use FormAccessible;
+    use softDeletes;
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'author_id', 'title', 'subtitle', 'price',
@@ -59,8 +63,8 @@ class Book extends Model implements TableInterface
     }
 
     public function formCategoriesAttribute()
-    {dd('2131231');
-        return $this->categories->pluck('id')->all();
+    {
+        return $this->categories()->pluck('id')->all();
     }
 
 
