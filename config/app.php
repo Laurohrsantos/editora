@@ -135,7 +135,7 @@ return [
     |
     */
 
-    'providers' => [
+    'providers' => array(
 
         /*
          * Laravel Framework Service Providers...
@@ -171,6 +171,11 @@ return [
         Bootstrapper\BootstrapperL5ServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         CodePub\Providers\RepositoryServiceProvider::class,
+        Nwidart\Modules\LaravelModulesServiceProvider::class,
+        /*
+         * Services provides dos modules
+         */
+        \CodeEduBook\Providers\CodeEduBookServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -181,7 +186,7 @@ return [
         CodePub\Providers\EventServiceProvider::class,
         CodePub\Providers\RouteServiceProvider::class,
 
-    ],
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -253,7 +258,7 @@ return [
         'Tabbable' => Bootstrapper\Facades\Tabbable::class,
         'Table' => Bootstrapper\Facades\Table::class,
         'Thumbnail' => Bootstrapper\Facades\Thumbnail::class,
-
+        'Module' => Nwidart\Modules\Facades\Module::class,
     ],
 
 ];

@@ -1,0 +1,16 @@
+{
+    "name": "laurohrsantos/codeedubook",
+    "description": "",
+    "authors": [
+        {
+            "name": "Lauro Henrique",
+            "email": "henrique_rodrigues_s@yahoo.com.br"
+        }
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "CodeEduBook\\": ""
+        }
+    }
+}

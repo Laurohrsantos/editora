@@ -19,10 +19,3 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['middleware' => 'auth'], function (){
-    Route::resource('books', 'BooksController');
-    Route::resource('categories', 'CategoriesController');
-    Route::group(['prefix' => 'trashed', 'as' => 'trashed.'], function () {
-        Route::resource('books', 'BooksTrashedController', ['except' => ['show', 'create', 'store','edit', 'update', 'destroy']]);
-    });
-});
