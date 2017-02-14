@@ -176,6 +176,7 @@ return [
          * Services provides dos modules
          */
         \CodeEduBook\Providers\CodeEduBookServiceProvider::class,
+        \CodeEduUser\Providers\CodeEduUserServiceProvider::class,
 
         /*
          * Application Service Providers...

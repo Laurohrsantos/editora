@@ -1,0 +1,15 @@
+{
+    "name": "laurohrsantos/codeeduuser",
+    "description": "",
+    "authors": [
+        {
+            "name": "Lauro Henrique",
+            "email": "henrique_rodrigues_s@yahoo.com.br"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CodeEduUser\\": ""
+        }
+    }
+}

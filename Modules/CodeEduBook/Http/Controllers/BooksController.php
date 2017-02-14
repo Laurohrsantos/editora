@@ -4,8 +4,6 @@ namespace CodeEduBook\Http\Controllers;
 
 use CodePub\Criteria\FindByAuthorCriteria;
 use CodePub\Criteria\FindByTitleCriteria;
-use CodePub\Http\Controllers\Controller;
-use CodePub\Http\Requests\BookDeleteRequest;
 use CodeEduBook\Models\Book;
 use CodeEduBook\Http\Requests\BookRequest;
 use CodeEduBook\Models\Category;

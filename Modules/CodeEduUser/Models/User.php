@@ -1,6 +1,6 @@
 <?php
 
-namespace CodePub\Models;
+namespace CodeEduUser\Models;
 
 use CodeEduBook\Models\Book;
 use Illuminate\Notifications\Notifiable;

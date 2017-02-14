@@ -1,10 +1,11 @@
 <?php
 
-namespace CodePub\Repositories;
+namespace CodeEduUser\Repositories;
 
+use CodeEduUser\Repositories\UserRepository;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodePub\Models\User;
+use CodeEduUser\Models\User;
 
 /**
  * Class CategoryRepositoryEloquent
