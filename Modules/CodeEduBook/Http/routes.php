@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function (){
+Route::group(['middleware' => ['auth', config('codeeduuser.middleware.isVerified')]], function (){
     Route::resource('books', 'BooksController');
     Route::resource('categories', 'CategoriesController');
     Route::group(['prefix' => 'trashed', 'as' => 'trashed.'], function () {

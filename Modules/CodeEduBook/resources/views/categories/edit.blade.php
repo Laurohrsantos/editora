@@ -13,7 +13,7 @@
             @include('codeedubook::categories._form')
 
             {!! Html::openFormGroup() !!}
-                {!! Form::submit('Editar Categoria', ['class' => 'btn btn-info']) !!}
+                {!! Button::primary('Editar Categoria', ['class' => 'btn btn-info'])->prependIcon(Icon::ok())->submit() !!}
             {!! Html::closeFormGroup() !!}
             {!! Form::close() !!}
         </div>

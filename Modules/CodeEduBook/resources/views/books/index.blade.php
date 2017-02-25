@@ -16,6 +16,7 @@
             {!! Form::close() !!}
         </div>
         <br>
+
         <div class="row">
             {!!
                 Table::withContents($books->items())->striped()->callback('Ações', function ($field, $book) {

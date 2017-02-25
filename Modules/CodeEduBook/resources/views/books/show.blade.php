@@ -36,7 +36,7 @@
             </fieldset>
 
             <div class="form-group">
-                {!! Form::submit('Deletar Livro', ['class' => 'btn btn-danger']) !!}
+                {!! Button::danger('Deletar Livro', ['class' => 'btn btn-danger'])->prependIcon(Icon::remove())->submit() !!}
             </div>
             {!! Form::close() !!}
         </div>

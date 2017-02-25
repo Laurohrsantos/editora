@@ -42,6 +42,14 @@
                                 'title' => 'Lixeira'
                             ],
                         ]
+                    ],
+                    [
+                        'link' => route('codeeduuser.users.index'),
+                        'title' => 'Usuários'
+                    ],
+                    [
+                        'link' => route('codeeduuser.roles.index'),
+                        'title' => 'Funções'
                     ]
                 ]);
                 $logout = Navigation::links([
@@ -49,8 +57,12 @@
                         Auth::user()->name,
                         [
                             [
+                                'link' => route('codeeduuser.user_settings.profile'),
+                                'title' => '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Perfil'
+                            ],
+                            [
                                 'link' => url('/logout'),
-                                'title' => 'Logout',
+                                'title' => '<span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout',
                                 'linkAttributes' => [
                                     'onclick' => "event.preventDefault(); document.getElementById(\"logout-form\").submit();"
                                 ]

@@ -56,7 +56,7 @@ class Book extends Model implements TableInterface
 
     public  function author()
     {
-        return $this->belongsTo(\CodeEduUser\Models\User::class);
+        return $this->belongsTo(\CodeEduUser\Models\User::class)->withTrashed();
     }
 
     public function categories()

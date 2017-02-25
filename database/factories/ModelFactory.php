@@ -19,6 +19,7 @@ $factory->define(\CodeEduUser\Models\User::class, function (Faker\Generator $fak
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'verified' => true,
     ];
 });
 

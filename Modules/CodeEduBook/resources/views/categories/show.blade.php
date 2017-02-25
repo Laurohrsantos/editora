@@ -17,7 +17,7 @@
             </fieldset>
 
             <div class="form-group">
-                {!! Form::submit('Deletar Categoria', ['class' => 'btn btn-danger']) !!}
+                {!! Button::danger('Deletar Categoria', ['class' => 'btn btn-danger'])->prependIcon(Icon::remove())->submit() !!}
             </div>
             {!! Form::close() !!}
         </div>

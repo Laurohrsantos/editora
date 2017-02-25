@@ -12,7 +12,8 @@
         "caouecs/laravel-lang": "~3.0",
         "prettus/l5-repository": "~2.6.6",
         "nwidart/laravel-modules": "dev-master",
-        "patricktalmadge/bootstrapper": "^5.10"
+        "patricktalmadge/bootstrapper": "^5.10",
+        "jrean/laravel-user-verification": "3.0.17"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

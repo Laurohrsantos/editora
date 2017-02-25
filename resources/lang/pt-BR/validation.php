@@ -121,6 +121,8 @@ return [
         'price' => 'preço',
         'categories' => 'categorias',
         'categories_*' => 'categoria :num',
+        'password' => 'senha',
+        'description' => 'descrição',
     ],
 
 ];

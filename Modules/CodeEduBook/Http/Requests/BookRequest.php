@@ -33,12 +33,14 @@ class BookRequest extends FormRequest
 
             $book_author =  $this->repository->find($this->route('book'));
             $user_id = \Auth::id();
-
-            if ($book_author->author_id == $user_id){
-                return true;
-            }
-            return false;
+//
+//            if ($book_author->author_id == $user_id){
+//                return \Gate::allows('upate-book', $book_author);
+//            }
+//            return false;
+            return \Gate::allows('upate-book', $book_author);
         }
+
         return true;
     }
 

@@ -13,7 +13,7 @@
             @include('codeedubook::books._form')
 
             {!! Html::openFormGroup() !!}
-                {!! Form::submit('Editar Livro', ['class' => 'btn btn-info']) !!}
+                {!! Button::primary('Editar Livro', ['class' => 'btn btn-info'])->prependIcon(Icon::ok())->submit() !!}
             {!! Html::closeFormGroup() !!}
             {!! Form::close() !!}
         </div>
