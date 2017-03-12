@@ -21,28 +21,31 @@
     </script>
 </head>
 <body>
-    <div id="app">
-        <?php
-            $navbar =  Navbar::withBrand(config('app.name'), url('/'))->inverse();
-            if(Auth::check()) {
-                $links = Navigation::links([
+<div id="app">
+    <?php
+    $navbar = Navbar::withBrand(config('app.name'), url('/'))->inverse();
+    if (Auth::check()) {
+        $links = Navigation::links([
+            [
+                'link' => route('categories.index'),
+                'title' => 'Categorias'
+            ],
+            [
+                'Livros',
+                [
                     [
-                        'link' => route('categories.index'),
-                        'title' => 'Categorias'
+                        'link' => route('books.index'),
+                        'title' => 'Listar'
                     ],
                     [
-                        'Livros',
-                        [
-                            [
-                                'link' => route('books.index'),
-                                'title' => 'Listar'
-                            ],
-                            [
-                                'link' => route('trashed.books.index'),
-                                'title' => 'Lixeira'
-                            ],
-                        ]
+                        'link' => route('trashed.books.index'),
+                        'title' => 'Lixeira'
                     ],
+                ]
+            ],
+            [
+                'Usuários',
+                [
                     [
                         'link' => route('codeeduuser.users.index'),
                         'title' => 'Usuários'
@@ -51,43 +54,51 @@
                         'link' => route('codeeduuser.roles.index'),
                         'title' => 'Funções'
                     ]
-                ]);
-                $logout = Navigation::links([
+                ]
+            ]
+        ]);
+        $logout = Navigation::links([
+            [
+                Auth::user()->name,
+                [
                     [
-                        Auth::user()->name,
-                        [
-                            [
-                                'link' => route('codeeduuser.user_settings.profile'),
-                                'title' => '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Perfil'
-                            ],
-                            [
-                                'link' => url('/logout'),
-                                'title' => '<span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout',
-                                'linkAttributes' => [
-                                    'onclick' => "event.preventDefault(); document.getElementById(\"logout-form\").submit();"
-                                ]
-                            ]
+                        'link' => route('codeeduuser.user_settings.profile'),
+                        'title' => '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Perfil'
+                    ],
+                    [
+                        'link' => url('/logout'),
+                        'title' => '<span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout',
+                        'linkAttributes' => [
+                            'onclick' => "event.preventDefault(); document.getElementById(\"logout-form\").submit();"
                         ]
                     ]
-                ])->right();
-                $navbar->withContent($links)->withContent($logout);
-            }
-        ?>
+                ]
+            ]
+        ])->right();
+        $navbar->withContent($links)->withContent($logout);
+    }
+    ?>
 
-        {!! $navbar !!}
-        {!! Form::open([ 'url' => url('/logout'), 'id' => 'logout-form', 'style' => 'display: none']) !!}
-        {!! Form::close() !!}
+    {!! $navbar !!}
+    {!! Form::open([ 'url' => url('/logout'), 'id' => 'logout-form', 'style' => 'display: none']) !!}
+    {!! Form::close() !!}
 
-        @if(Session::has('message'))
-            <div class="container">
-                {!! Alert::success(Session::get('message'))->close() !!}
-            </div>s
-        @endif
+    @if(Session::has('message'))
+        <div class="container">
+            {!! Alert::success(Session::get('message'))->close() !!}
+        </div>
+    @endif
 
-        @yield('content')
-    </div>
+    @if(Session::has('error'))
+        <div class="container">
+            {!! Alert::danger(Session::get('error'))->close() !!}
+        </div>s
+    @endif
 
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
+    @yield('content')
+</div>
+
+<!-- Scripts -->
+<script src="/js/app.js"></script>
 </body>
 </html>

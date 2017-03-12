@@ -2,10 +2,25 @@
 
 namespace CodeEduUser\Http\Requests;
 
+use CodeEduUser\Repositories\RoleRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleRequest extends FormRequest
 {
+    /**
+     * @var RoleRepository
+     */
+    private $repository;
+
+    /**
+     * RoleRequest constructor.
+     * @param RoleRepository $repository
+     */
+    public function __construct(RoleRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,7 +28,8 @@ class RoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $role = $this->repository->findByField('name', config('codeeduuser.acl.role_admin'))->first();
+        return $this->route('role') != $role->id;
     }
 
     /**
@@ -27,7 +43,7 @@ class RoleRequest extends FormRequest
 
         return [
             'name' => "required | max: 255 | unique:roles,name,$id",
-            'description' => "required | max: 255"
+            'description' => "max: 255"
         ];
     }
 

@@ -10,7 +10,11 @@ use CodeEduBook\Models\Category;
 use CodeEduBook\Repositories\BookRepository;
 use CodeEduBook\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
+use CodeEduUser\Annotations\Mapping as Permission;
 
+/**
+ * @Permission\Controller(name="books-permission", description="Administração de livros")
+ */
 class BooksController extends Controller
 {
     /**
@@ -36,6 +40,7 @@ class BooksController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @Permission\Action(name="list", description="Ver listagem de livros.")
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
@@ -50,6 +55,7 @@ class BooksController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @Permission\Action(name="store", description="Criação de livros.")
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -61,6 +67,7 @@ class BooksController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @Permission\Action(name="store", description="Criação de livros.")
      * @param BookRequest|Request $request
      * @return \Illuminate\Http\Response
      */
@@ -79,6 +86,7 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      *
+     * @Permission\Action(name="delete", description="Exclusão de livros.")
      * @param $id
      * @return \Illuminate\Http\Response
      * @internal param Book $book
@@ -94,6 +102,7 @@ class BooksController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @Permission\Action(name="update", description="Edição de livros.")
      * @param $id
      * @return \Illuminate\Http\Response
      * @internal param Book $book
@@ -109,6 +118,7 @@ class BooksController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @Permission\Action(name="update", description="Edição de livros.")
      * @param BookRequest $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
@@ -128,6 +138,7 @@ class BooksController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @Permission\Action(name="delete", description="Exclusão de livros.")
      * @param BookRequest $request
      * @param $id
      * @return \Illuminate\Http\Response

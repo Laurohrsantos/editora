@@ -2,6 +2,8 @@
 
 namespace CodePub\Providers;
 
+use CodeEduUser\Criteria\FindPermissionsResourceCriteria;
+use CodeEduUser\Repositories\PermissionRepository;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -25,12 +27,24 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        \Gate::define('update-book', function ($user, $book) {
-            return $user->id == $book->author_id;
+        \Gate::before(function ($user, $ability) {
+            if ($user->isAdmin()) {
+                return true;
+            }
         });
 
-        \Gate::define('user-admin', function ($user){
-            return $user->isAdmin();
-        });
+//        \Gate::define('user-admin', function ($user){
+//            return $user->isAdmin();
+//        });
+
+        /** @var PermissionRepository $permissionRepository */
+        $permissionRepository = app(PermissionRepository::class);
+        $permissionRepository->pushCriteria(new FindPermissionsResourceCriteria());
+        $permissions = $permissionRepository->all();
+        foreach ($permissions as $permission) {
+            \Gate::define("{$permission->name}/{$permission->resource_name}", function ($user) {
+                return $user->hasRole($permission->roles);
+            });
+        }
     }
 }

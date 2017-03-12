@@ -6,7 +6,11 @@ use CodeEduBook\Models\Category;
 use CodeEduBook\Http\Requests\CategoryRequest;
 use CodeEduBook\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
+use CodeEduUser\Annotations\Mapping as Permission;
 
+/**
+ * @Permission\Controller(name="category-permission", description="Administração de categorias")
+ */
 class CategoriesController extends Controller
 {
     /**
@@ -26,6 +30,7 @@ class CategoriesController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @Permission\Action(name="list", description="Ver listagem de categorias.")
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -38,6 +43,7 @@ class CategoriesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @Permission\Action(name="store", description="Criação de categorias.")
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -48,6 +54,7 @@ class CategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @Permission\Action(name="store", description="Criação de categorias.")
      * @param CategoryRequest|Request $request
      * @return \Illuminate\Http\Response
      */
@@ -63,6 +70,7 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      *
+     * @Permission\Action(name="delete", description="Exclusão de categorias.")
      * @param Category $category
      * @return \Illuminate\Http\Response
      * @internal param int $id
@@ -75,6 +83,7 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @Permission\Action(name="update", description="Edição de categorias.")
      * @param Category $category
      * @return \Illuminate\Http\Response
      * @internal param int $id
@@ -87,6 +96,7 @@ class CategoriesController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @Permission\Action(name="update", description="Edição de categorias.")
      * @param CategoryRequest|Request $request
      * @param $id
      * @internal param int $id
@@ -104,6 +114,7 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @Permission\Action(name="delete", description="Exclusão de categorias.")
      * @param $id
      * @return \Illuminate\Http\Response
      * @internal param Category $category

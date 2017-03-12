@@ -32,13 +32,15 @@ class BookRequest extends FormRequest
         if ($this->method() == 'PUT' || $this->method() == 'DELETE'){
 
             $book_author =  $this->repository->find($this->route('book'));
-            $user_id = \Auth::id();
+            $user_id = \Auth::user();
 //
 //            if ($book_author->author_id == $user_id){
 //                return \Gate::allows('upate-book', $book_author);
 //            }
 //            return false;
-            return \Gate::allows('upate-book', $book_author);
+//            return \Gate::allows('upate-book', $book_author);
+
+            return $user_id->can('update', $book_author);
         }
 
         return true;

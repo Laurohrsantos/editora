@@ -123,6 +123,7 @@ return [
         'categories_*' => 'categoria :num',
         'password' => 'senha',
         'description' => 'descrição',
+        'roles_*' => 'função :num',
     ],
 
 ];

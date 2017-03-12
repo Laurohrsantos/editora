@@ -13,7 +13,8 @@
         "prettus/l5-repository": "~2.6.6",
         "nwidart/laravel-modules": "dev-master",
         "patricktalmadge/bootstrapper": "^5.10",
-        "jrean/laravel-user-verification": "3.0.17"
+        "jrean/laravel-user-verification": "3.0.17",
+        "doctrine/annotations": "1.3.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

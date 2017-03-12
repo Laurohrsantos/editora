@@ -22,4 +22,14 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
         return Role::class;
     }
 
+    public function update(array $attributes, $id)
+    {
+        $model = parent::update($attributes, $id);
+        if(isset($attributes['permissions'])){
+            $model->permissions()->sync($attributes['permissions']);
+        }
+
+        return $model;
+    }
+
 }

@@ -15,6 +15,8 @@
                            "<li>".Button::LINK('<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> Editar')->asLinkTo(route('codeeduuser.roles.edit', ['user' => $role->id]))."<li>".
                            "<li>|<li>".
                            "<li>".Button::link('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Deletar')->asLinkTo(route('codeeduuser.roles.show', ['user' => $role->id]))."<li>".
+                           "<li>|<li>".
+                           "<li>".Button::link('<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Permissões')->asLinkTo(route('codeeduuser.roles.permission.edit', ['user' => $role->id]))."<li>".
                            "</ul>";
                 })
             !!}

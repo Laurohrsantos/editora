@@ -5,28 +5,40 @@ namespace CodeEduUser\Http\Controllers;
 use CodeEduUser\Http\Requests\UserDeleteRequest;
 use CodeEduUser\Models\User;
 use CodeEduUser\Http\Requests\UserRequest;
+use CodeEduUser\Repositories\RoleRepository;
 use CodeEduUser\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use CodeEduUser\Annotations\Mapping as Permission;
 
+/**
+ * @Permission\Controller(name="users-admin", description="Administração de usuários")
+ */
 class UsersController extends Controller
 {
     /**
      * @var UserRepository
      */
     private $repository;
+    /**
+     * @var RoleRepository
+     */
+    private $roleRepository;
 
     /**
      * UsersController constructor.
      * @param UserRepository $repository
+     * @param RoleRepository $roleRepository
      */
-    public function __construct(UserRepository $repository)
+    public function __construct(UserRepository $repository, RoleRepository $roleRepository)
     {
         $this->repository = $repository;
+        $this->roleRepository = $roleRepository;
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @Permission\Action(name="list", description="Ver listagem de usuários.")
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -39,16 +51,19 @@ class UsersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @Permission\Action(name="store", description="Criar usuários.")
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('codeeduuser::users.create');
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        return view('codeeduuser::users.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @Permission\Action(name="store", description="Criar usuários.")
      * @param UserRequest|Request $request
      * @return \Illuminate\Http\Response
      */
@@ -64,30 +79,35 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
+     * @Permission\Action(name="delete", description="Deletar usuários.")
      * @param User $user
      * @return \Illuminate\Http\Response
      * @internal param int $id
      */
     public function show(User $user)
     {
-        return view('codeeduuser::users.show', compact('user'));
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        return view('codeeduuser::users.show', compact('user', 'roles'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+     * @Permission\Action(name="update", description="Alterar usuários.")
      * @param User $user
      * @return \Illuminate\Http\Response
      * @internal param int $id
      */
     public function edit(User $user)
     {
-        return view('codeeduuser::users.edit', compact('user'));
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        return view('codeeduuser::users.edit', compact('user', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
+     * @Permission\Action(name="update", description="Alterar usuários.")
      * @param UserRequest|Request $request
      * @param $id
      * @internal param int $id
@@ -106,6 +126,7 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @Permission\Action(name="delete", description="Excluir usuários.")
      * @param UserDeleteRequest $request
      * @param $id
      * @return \Illuminate\Http\Response
