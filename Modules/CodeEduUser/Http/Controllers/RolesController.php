@@ -179,8 +179,8 @@ class RolesController extends Controller
      */
     public function updatePermission(PermissionRequest $request, $id)
     {
-        $data = $request->only('permissions');
-        $this->repository->update($data, $id);
+        $data = $request->get('permissions', []);
+        $this->repository->updatePermissions($data, $id);
         $request->session()->flash('message', 'Permissões atribuidas com sucesso.');
         $url = $request->get('redirect_to', route('codeeduuser.roles.index'));
 

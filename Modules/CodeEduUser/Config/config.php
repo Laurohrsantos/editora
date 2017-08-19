@@ -16,8 +16,8 @@ return [
     ],
     'acl' => [
         'role_admin' => env('ROLE_ADMIN', 'Admin'),
+        'role_author' => env('ROLE_AUTHOR', 'Author'),
         'controllers_annotations' => [
-            __DIR__ . '/../Http/Controllers'
         ]
     ]
 ];

@@ -12,8 +12,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \Artisan::call('codeeduuser:make-permission');
+        $this->call(AclTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(BooksTableSeeder::class);
+        $this->call(ChaptersTableSeeder::class);
     }
 }

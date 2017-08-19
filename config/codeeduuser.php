@@ -16,8 +16,9 @@ return [
     ],
     'acl' => [
         'role_admin' => env('ROLE_ADMIN', 'Admin'),
+        'role_author' => env('ROLE_AUTHOR', 'Autor'),
         'controllers_annotations' => [
-            __DIR__  . '/../Modules/CodeEduUser/Http/Controllers',
+            __DIR__  . '/../app/Http/Controllers',
         ]
     ]
 ];

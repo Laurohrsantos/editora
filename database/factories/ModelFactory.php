@@ -23,6 +23,12 @@ $factory->define(\CodeEduUser\Models\User::class, function (Faker\Generator $fak
     ];
 });
 
+$factory->state(\CodeEduUser\Models\User::class, 'author', function (Faker\Generator $faker) {
+    return [
+        'email' => 'author@editora.com',
+    ];
+});
+
 $factory->define(\CodeEduBook\Models\Category::class, function (Faker\Generator $faker) {
     return [
         'name' => ucfirst($faker->unique()->word),
@@ -40,5 +46,12 @@ $factory->define(\CodeEduBook\Models\Book::class, function (Faker\Generator $fak
         'title' => ucfirst($faker->title),
         'subtitle' => ucfirst($faker->jobTitle),
         'price' => $faker->randomFloat(2, 1, 100),
+    ];
+});
+
+$factory->define(\CodeEduBook\Models\Chapter::class, function (Faker\Generator $faker) {
+    return [
+        'name' => ucfirst($faker->sentence(2)),
+        'content' => $faker->paragraph(10),
     ];
 });

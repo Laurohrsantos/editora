@@ -25,11 +25,20 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
     public function update(array $attributes, $id)
     {
         $model = parent::update($attributes, $id);
-        if(isset($attributes['permissions'])){
+        if (isset($attributes['permissions'])) {
             $model->permissions()->sync($attributes['permissions']);
         }
 
         return $model;
     }
 
+    public function updatePermissions(array $permissions, $id)
+    {
+        $model = parent::find($id);
+        $model->permissions()->detach();
+        if (count($permissions)) {
+            $model->permissions()->sync($permissions);
+        }
+        return $model;
+    }
 }

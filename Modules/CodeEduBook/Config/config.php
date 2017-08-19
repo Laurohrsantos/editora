@@ -1,5 +1,13 @@
 <?php
 
 return [
-    'name' => 'CodeEduBook'
+    'acl' => [
+        'role_author' => env('ROLE_AUTHOR', 'Author'),
+        'permissions' => [
+            'book_manage_all' => 'books-permission/manage_all'
+        ],
+        'controllers_annotations' => [
+            __DIR__  . '/../app/Http/Controllers',
+        ]
+    ]
 ];

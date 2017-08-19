@@ -24,9 +24,9 @@ class AuthorizationResource
         list($controller, $action) = explode('@', $currentAction);
         $permission = PermissionReader::getPermission($controller, $action);
 
-        $permission = $permission[0];
 //        dd($permission);
         if (count($permission)) {
+            $permission = $permission[0];
             if (!\Gate::allows("{$permission['name']}/{$permission['resource_name']}")) {
                 throw new AuthorizationException('Usuário não autorizado');
             }

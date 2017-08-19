@@ -262,6 +262,7 @@ return [
         'Module' => Nwidart\Modules\Facades\Module::class,
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
         'PermissionReader' => \CodeEduUser\Facade\PermissionReader::class,
+        'NavbarAuthorization' => \CodeEduUser\Facade\NavbarAuthorization::class,
     ],
 
 ];

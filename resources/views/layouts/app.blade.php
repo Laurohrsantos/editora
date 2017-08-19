@@ -25,21 +25,24 @@
     <?php
     $navbar = Navbar::withBrand(config('app.name'), url('/'))->inverse();
     if (Auth::check()) {
-        $links = Navigation::links([
+        $links = Navigation::links(\NavbarAuthorization::getLinksAuthorized([
             [
                 'link' => route('categories.index'),
-                'title' => 'Categorias'
+                'title' => 'Categorias',
+                'permission' => 'category-permission/list',
             ],
             [
                 'Livros',
                 [
                     [
                         'link' => route('books.index'),
-                        'title' => 'Listar'
+                        'title' => 'Listar',
+                        'permission' => 'books-permission/list',
                     ],
                     [
                         'link' => route('trashed.books.index'),
-                        'title' => 'Lixeira'
+                        'title' => 'Lixeira',
+                        'permission' => 'books-permission-trash/list',
                     ],
                 ]
             ],
@@ -48,15 +51,17 @@
                 [
                     [
                         'link' => route('codeeduuser.users.index'),
-                        'title' => 'Usuários'
+                        'title' => 'Usuários',
+                        'permission' => 'user-admin/list',
                     ],
                     [
                         'link' => route('codeeduuser.roles.index'),
-                        'title' => 'Funções'
+                        'title' => 'Funções',
+                        'permission' => 'roles-admin/list',
                     ]
                 ]
             ]
-        ]);
+        ]));
         $logout = Navigation::links([
             [
                 Auth::user()->name,

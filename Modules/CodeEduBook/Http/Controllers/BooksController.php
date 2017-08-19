@@ -2,6 +2,7 @@
 
 namespace CodeEduBook\Http\Controllers;
 
+use CodeEduBook\Criteria\FindByAuthor;
 use CodePub\Criteria\FindByAuthorCriteria;
 use CodePub\Criteria\FindByTitleCriteria;
 use CodeEduBook\Models\Book;
@@ -29,11 +30,13 @@ class BooksController extends Controller
     /**
      * BooksController constructor.
      * @param BookRepository $repository
+     * @param CategoryRepository $categoryRepository
      */
     public function __construct(BookRepository $repository, CategoryRepository $categoryRepository)
     {
 
         $this->repository = $repository;
+        $this->repository->pushCriteria(new FindByAuthor());
         $this->categoryRepository = $categoryRepository;
     }
 
