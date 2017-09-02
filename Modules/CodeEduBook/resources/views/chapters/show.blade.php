@@ -3,40 +3,36 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>Deletar livro</h3>
+            <h3>Deletar capítulo - Livro: {{$book->title}}</h3>
 
-            {!! Form::model($book, [
-                'route' => ['books.destroy', 'category' => $book->id],
+            {!! Form::model($chapters, [
+                'route' => ['chapters.destroy', 'book' => $book->id, 'chapters' => $chapters->id],
                 'class' => 'form', 'method' => 'DELETE']) !!}
+
+            {!! Form::hidden('redirect_to', URL::previous()) !!}
 
             <fieldset readonly="readonly">
                 <fieldset readonly="readonly">
                     <div class="form-group">
-                        {!! Form::label('title', 'Título') !!}
-                        {!! Form::text('title', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                        {!! Form::label('name', 'Nome') !!}
+                        {!! Form::text('name', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('subtitle', 'Subtítulo') !!}
-                        {!! Form::text('subtitle', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                        {!! Form::label('order', 'Ordem') !!}
+                        {!! Form::text('order', isset($chapters)?$chapters->order: 1, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('price', 'Preço') !!}
-                        {!! Form::number('price', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                        {!! Form::label('content', 'Conteúdo') !!}
+                        {!! Form::textarea('content', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
                     </div>
 
-                    <div class="form-group">
-                        {!! Form::label('categories[]', 'Categorias', ['class' => 'control-label']) !!}
-                        {!! Form::select('categories[]', $categories, null, ['class' => 'form-control', 'multiple' => true, 'readonly' => 'readonly']) !!}
-                        {!! Form::error('categories', $errors) !!}
-                        {!! Form::error('categories.*', $errors) !!}
-                    </div>
                 </fieldset>
             </fieldset>
 
             <div class="form-group">
-                {!! Button::danger('Deletar Livro', ['class' => 'btn btn-danger'])->prependIcon(Icon::remove())->submit() !!}
+                {!! Button::danger('Deletar capítulo', ['class' => 'btn btn-danger'])->prependIcon(Icon::remove())->submit() !!}
             </div>
             {!! Form::close() !!}
         </div>

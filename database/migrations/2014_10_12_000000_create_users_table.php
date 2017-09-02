@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
+            //$table->enum('papel', array_keys(\CodeEduUser\Models\User::PAPEL))->nullable();
             $table->timestamps();
         });
     }

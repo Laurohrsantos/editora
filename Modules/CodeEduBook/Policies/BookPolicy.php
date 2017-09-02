@@ -20,8 +20,8 @@ class BookPolicy
     /**
      * Determine whether the user can update the book.
      *
-     * @param User|\CodePub\User $user
-     * @param Book|\CodePub\Book $book
+     * @param User|\CodeEduUser\Models\User $user
+     * @param Book|\CodeEduBook\Models\Book $book
      * @return mixed
      */
     public function update(User $user, Book $book)

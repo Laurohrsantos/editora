@@ -32,6 +32,27 @@
                         {!! Form::error('categories', $errors) !!}
                         {!! Form::error('categories.*', $errors) !!}
                     </div>
+
+                    <div class="form-group">
+                        {!! Form::label('dedication', 'Dedicatória', ['class' => 'control-label']) !!}
+                        {!! Form::textarea('dedication', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('description', 'Descrição', ['class' => 'control-label']) !!}
+                        {!! Form::textarea('description', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('website', 'Website', ['class' => 'control-label']) !!}
+                        {!! Form::text('website', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('percent_complete', 'Concluido (%)', ['class' => 'control-label']) !!}
+                        {!! Form::number('percent_complete', null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                    </div>
+
                 </fieldset>
             </fieldset>
 

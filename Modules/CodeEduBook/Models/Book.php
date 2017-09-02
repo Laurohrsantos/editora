@@ -13,11 +13,14 @@ class Book extends Model implements TableInterface
 {
     use FormAccessible;
     use softDeletes;
+    use BookStorageTrait;
+    use BookThumbnailTrait;
 
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'author_id', 'title', 'subtitle', 'price',
+        'author_id', 'title', 'subtitle', 'price', 'dedication', 'description', 'website',
+        'percent_complete', 'published'
     ];
 
     /**

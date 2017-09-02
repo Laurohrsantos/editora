@@ -31,9 +31,9 @@ class CreateManageBookPermissionData extends Migration
      */
     public function down()
     {
-        list($name, $resourceName) = explode('/', config('codeedubook.acl.permissions.book_manage_all'));
+        list($name, $resource_name) = explode('/', config('codeedubook.acl.permissions.book_manage_all'));
         $permission = Permission::where('name', $name)
-            ->where('resource_name', $resourceName)
+            ->where('resource_name', $resource_name)
             ->first();
         $permission->roles()->detach();
         $permission->delete();

@@ -46,6 +46,10 @@ $factory->define(\CodeEduBook\Models\Book::class, function (Faker\Generator $fak
         'title' => ucfirst($faker->title),
         'subtitle' => ucfirst($faker->jobTitle),
         'price' => $faker->randomFloat(2, 1, 100),
+        'dedication' => $faker->sentence,
+        'description' => $faker->paragraph,
+        'website' => $faker->url,
+        'percent_complete' => rand(0, 100),
     ];
 });
 

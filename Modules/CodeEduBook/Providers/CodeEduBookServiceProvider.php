@@ -2,6 +2,7 @@
 
 namespace CodeEduBook\Providers;
 
+use Folklore\Image\ImageServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class CodeEduBookServiceProvider extends ServiceProvider
@@ -24,6 +25,7 @@ class CodeEduBookServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->publishMigrationsAndSeeders();
+        $this->publishAssets();
     }
 
     /**
@@ -36,6 +38,7 @@ class CodeEduBookServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(RepositoryServiceProvider::class);
         $this->app->register(AuthServiceProvider::class);
+        $this->app->register(ImageServiceProvider::class);
     }
 
     /**
@@ -46,10 +49,10 @@ class CodeEduBookServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__.'/../Config/config.php' => config_path('codeedubook.php'),
+            __DIR__ . '/../Config/config.php' => config_path('codeedubook.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            __DIR__.'/../Config/config.php', 'codeedubook'
+            __DIR__ . '/../Config/config.php', 'codeedubook'
         );
     }
 
@@ -62,7 +65,7 @@ class CodeEduBookServiceProvider extends ServiceProvider
     {
         $viewPath = base_path('resources/views/modules/codeedubook');
 
-        $sourcePath = __DIR__.'/../resources/views';
+        $sourcePath = __DIR__ . '/../resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath
@@ -85,23 +88,32 @@ class CodeEduBookServiceProvider extends ServiceProvider
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, 'codeedubook');
         } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../resources/lang', 'codeedubook');
+            $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'codeedubook');
         }
     }
 
     public function publishMigrationsAndSeeders()
     {
-        $sourcePath = __DIR__. '/../database/migrations';
+        $sourcePath = __DIR__ . '/../database/migrations';
 
         $this->publishes([
             $sourcePath => database_path('migrations')
         ], 'migrations');
 
-        $sourcePath = __DIR__. '/../database/seeders';
+        $sourcePath = __DIR__ . '/../database/seeders';
 
         $this->publishes([
             $sourcePath => database_path('seeds')
         ], 'seeders');
+    }
+
+    public function publishAssets()
+    {
+        $sourcePath = __DIR__ . '/../resources/assets/js';
+
+        $this->publishes([
+            $sourcePath => public_path('js')
+        ], 'assets');
     }
 
     /**

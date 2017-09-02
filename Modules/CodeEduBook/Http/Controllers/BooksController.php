@@ -3,6 +3,8 @@
 namespace CodeEduBook\Http\Controllers;
 
 use CodeEduBook\Criteria\FindByAuthor;
+use CodeEduBook\Http\Requests\BookCoverRequest;
+use CodeEduBook\Pub\BookCoverUpload;
 use CodePub\Criteria\FindByAuthorCriteria;
 use CodePub\Criteria\FindByTitleCriteria;
 use CodeEduBook\Models\Book;
@@ -90,15 +92,16 @@ class BooksController extends Controller
      * Display the specified resource.
      *
      * @Permission\Action(name="delete", description="Exclusão de livros.")
-     * @param $id
+     * @param Book $book
      * @return \Illuminate\Http\Response
+     * @internal param $id
      * @internal param Book $book
      * @internal param $id
      */
-    public function show($id)
+    public function show(Book $book)
     {
         $categories = $this->categoryRepository->lists('name', 'id'); //pluck
-        $book = $this->repository->find($id);
+        $book = $this->repository->find($book->id);
         return view('codeedubook::books.show', compact('book', 'categories'));
     }
 
@@ -106,15 +109,16 @@ class BooksController extends Controller
      * Show the form for editing the specified resource.
      *
      * @Permission\Action(name="update", description="Edição de livros.")
-     * @param $id
+     * @param Book $book
      * @return \Illuminate\Http\Response
+     * @internal param $id
      * @internal param Book $book
      */
-    public function edit($id)
+    public function edit(Book $book)
     {
         $this->categoryRepository->withTrashed();
         $categories = $this->categoryRepository->listsWithMutators('name_trashed', 'id'); //pluck
-        $book = $this->repository->find($id);
+        $book = $this->repository->find($book->id);
         return view('codeedubook::books.edit', compact('book', 'categories'));
     }
 
@@ -123,15 +127,17 @@ class BooksController extends Controller
      *
      * @Permission\Action(name="update", description="Edição de livros.")
      * @param BookRequest $request
-     * @param $id
+     * @param Book $book
      * @return \Illuminate\Http\RedirectResponse
+     * @internal param $id
      * @internal param Book $book
      * @internal param int $id
      */
-    public function update(BookRequest $request, $id)
+    public function update(BookRequest $request, Book $book)
     {
         $data = $request->except(['author_id']);
-        $this->repository->update($data, $id);
+        $data['published'] = $request->get('published', false);
+        $this->repository->update($data, $book->id);
         $request->session()->flash('message', 'Livro alterado com Sucesso.');
         $url = $request->get('redirect_to', route('books.index'));
 
@@ -148,11 +154,37 @@ class BooksController extends Controller
      * @internal param Book $book
      * @internal param int $id
      */
-    public function destroy(BookRequest $request, $id) //o erro era que eu estava passando o request
+    public function destroy(BookRequest $request, Book $book) //o erro era que eu estava passando o request
     {
-        $this->repository->delete($id);
+        $this->repository->delete($book->id);
         \Session::flash('message', 'Livro deletado com Sucesso.');
 
         return redirect()->route('books.index');
+    }
+
+
+    /**
+     * @Permission\Action(name="cover", description="Cover de livro")
+     * @param Book $book
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function coverForm (Book $book)
+    {
+        return view('codeedubook::books.cover', compact('book'));
+    }
+
+    /**
+     * @Permission\Action(name="cover", description="Cover de livro")
+     * @param BookCoverRequest $request
+     * @param Book $book
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function coverStore (BookCoverRequest $request, Book $book, BookCoverUpload $upload)
+    {
+        $upload->upload($book, $request->file('file'));
+        $url = $request->get('redirect_to', route('books.index'));
+        $request->session()->flash('message', 'A imagem do cover foi adicionado com sucesso.');
+
+        return redirect()->to($url);
     }
 }

@@ -29,18 +29,22 @@ class BookRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->method() == 'PUT' || $this->method() == 'DELETE'){
+        if ($this->method() == 'PUT' || $this->method() == 'DELETE') {
 
-            $book_author =  $this->repository->find($this->route('book'));
+            $method = $this->method();
+            $book_author = $this->route('book');
             $user_id = \Auth::user();
-//
-//            if ($book_author->author_id == $user_id){
-//                return \Gate::allows('upate-book', $book_author);
-//            }
-//            return false;
-//            return \Gate::allows('upate-book', $book_author);
 
-            return $user_id->can('update', $book_author);
+            if ($book_author->author_id == $user_id->id && $method == 'PUT') {
+                return \Gate::allows('update', $book_author);
+            }
+
+            if ($book_author->author_id == $user_id->id && $method == 'DELETE') {
+                return \Gate::allows('delete', $book_author);
+            }
+
+            return false;
+
         }
 
         return true;
@@ -60,6 +64,10 @@ class BookRequest extends FormRequest
             'price' => "required | numeric",
             'categories' => 'required | array',
             'categories.*' => 'exists:categories,id',
+            'dedication' => 'required',
+            'description' => 'required',
+            'website' => "required | max: 255 | url",
+            'percent_complete' => "required | integer | min:0",
         ];
     }
 
@@ -68,8 +76,8 @@ class BookRequest extends FormRequest
         $result = [];
         $categories = $this->get('categories', []);
         $count = count($categories);
-        if(is_array($categories) && $count > 0) {
-            foreach (range(0, $count-1) as $value) {
+        if (is_array($categories) && $count > 0) {
+            foreach (range(0, $count - 1) as $value) {
                 $field = \Lang::get('validation.attributes.categories_*', [
                     'num' => $value + 1
                 ]);

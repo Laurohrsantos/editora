@@ -4,6 +4,7 @@ namespace CodeEduBook\Http\Controllers;
 
 use CodeEduBook\Criteria\FindByAuthor;
 use CodeEduBook\Criteria\FindByBook;
+use CodeEduBook\Criteria\OrderByOrder;
 use CodeEduBook\Http\Requests\ChapterCreateRequest;
 use CodeEduBook\Http\Requests\ChapterUpdateRequest;
 use CodeEduBook\Repositories\ChapterRepository;
@@ -14,7 +15,7 @@ use Illuminate\Http\Request;
 use CodeEduUser\Annotations\Mapping as Permission;
 
 /**
- * @Permission\Controller(name="chapter-permission", description="Administração de Capítulos")
+ * @Permission\Controller(name="chapter-permission", description="Administração de capítulos")
  */
 class ChapterController extends Controller
 {
@@ -53,7 +54,7 @@ class ChapterController extends Controller
     public function index(Request $request, Book $book)
     {
         $search = $request->get('search');
-        $this->repository->pushCriteria(new FindByBook($book->id));
+        $this->repository->pushCriteria(new FindByBook($book->id))->pushCriteria(new OrderByOrder());
         $chapters = $this->repository->paginate(10);
 
         return view('codeedubook::chapters.index', compact('chapters', 'search', 'book'));
@@ -62,7 +63,7 @@ class ChapterController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @Permission\Action(name="store", description="Criação de capítulos.")
+     * @Permission\Action(name="store", description="Criação de capítulus.")
      * @param $id
      * @return \Illuminate\Http\Response
      */
@@ -94,7 +95,7 @@ class ChapterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @Permission\Action(name="delete", description="Exclusão de caítulos.")
+     * @Permission\Action(name="delete", description="Exclusão de capítulos.")
      * @param $id
      * @return \Illuminate\Http\Response
      * @internal param Book $book
@@ -102,15 +103,15 @@ class ChapterController extends Controller
      */
     public function show(Book $book, $chapterID)
     {
-        $chapter = $this->repository->find($chapterID);
+        $chapters = $this->repository->find($chapterID);
 //        $book = $this->repository->find($id);
-        return view('codeedubook::chapters.show', compact('chapter', 'book'));
+        return view('codeedubook::chapters.show', compact('chapters', 'book'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @Permission\Action(name="update", description="Edição de livros.")
+     * @Permission\Action(name="update", description="Edição de capítulos.")
      * @param $id
      * @return \Illuminate\Http\Response
      * @internal param Book $book
@@ -125,7 +126,7 @@ class ChapterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @Permission\Action(name="update", description="Edição de livros.")
+     * @Permission\Action(name="update", description="Edição de capítulos.")
      * @param ChapterUpdateRequest $request
      * @param Book $book
      * @param $chapterID
@@ -148,18 +149,21 @@ class ChapterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @Permission\Action(name="delete", description="Exclusão de livros.")
+     * @Permission\Action(name="delete", description="Exclusão de capítulos.")
      * @param BookRequest $request
      * @param $id
      * @return \Illuminate\Http\Response
      * @internal param Book $book
      * @internal param int $id
      */
-    public function destroy(BookRequest $request, $id) //o erro era que eu estava passando o request
+    public function destroy(Book $book, $chapterID, Request $request)
     {
-        $this->repository->delete($id);
-        \Session::flash('message', 'Livro deletado com Sucesso.');
+        $url = $request->get('redirect_to');
+        $this->repository->pushCriteria(new FindByBook($book->id));
+        $this->repository->delete($chapterID);
+        \Session::flash('message', 'Capítulo deletado com Sucesso.');
 
-        return redirect()->route('books.index');
+        return redirect()->to($url);
+//        return redirect()->route(\URL::previous());
     }
 }

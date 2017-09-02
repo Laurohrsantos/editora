@@ -23,6 +23,8 @@
                     return "<ul class=\"list-inline\">".
                            "<li>".Button::link('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> Capítulos')->asLinkTo(route('chapters.index', ['book' => $book->id]))."<li>".
                            "<li>|<li>".
+                           "<li>".Button::link('<span class="glyphicon glyphicon glyphicon-picture" aria-hidden="true"></span> Cover')->asLinkTo(route('books.cover.create', ['book' => $book->id]))."<li>".
+                           "<li>|<li>".
                            "<li>".Button::link('<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> Editar')->asLinkTo(route('books.edit', ['category' => $book->id]))."<li>".
                            "<li>|<li>".
                            "<li>".Button::link('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Lixeira')->asLinkTo(route('books.show', ['category' => $book->id]))."<li>".
