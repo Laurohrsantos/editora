@@ -5,6 +5,7 @@ namespace CodeEduBook\Http\Controllers;
 use CodeEduBook\Criteria\FindByAuthor;
 use CodeEduBook\Http\Requests\BookCoverRequest;
 use CodeEduBook\Pub\BookCoverUpload;
+use CodeEduBook\Pub\BookExport;
 use CodePub\Criteria\FindByAuthorCriteria;
 use CodePub\Criteria\FindByTitleCriteria;
 use CodeEduBook\Models\Book;
@@ -186,5 +187,13 @@ class BooksController extends Controller
         $request->session()->flash('message', 'A imagem do cover foi adicionado com sucesso.');
 
         return redirect()->to($url);
+    }
+
+    public function export(Book $book)
+    {
+        $bookExport = app(BookExport::class);
+        $bookExport->export($book);
+
+        return redirect()->route('books.index');
     }
 }
